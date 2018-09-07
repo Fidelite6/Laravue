@@ -1,8 +1,8 @@
 <?php
 
-
 Route::group(['middleware' => ['auth','admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('dashboard', 'Admin\TestController@index')->name('dashboard.index');
+    Route::get('/', 'Admin\DashboardController@index');
+    Route::get('dashboard', 'Admin\DashboardController@dashboard')->name('dashboard.index');
 });
 
 

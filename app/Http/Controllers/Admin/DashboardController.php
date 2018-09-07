@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class DashboardController  extends Controller
 {
     public function index(){
+        return redirect(route('admin.dashboard.index'));
+    }
+
+    public function dashboard(){
         return view('admin.dashboard.index');
     }
 }
