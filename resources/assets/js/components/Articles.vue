@@ -107,7 +107,7 @@
                         .then(data => {
                             this.article.title = '';
                             this.article.body = '';
-                            alert('added');
+//                            alert('added');
                             this.fetchArticles();
                         })
                         .catch(err => console.log(err))
@@ -124,7 +124,7 @@
                         .then(data => {
                             this.article.title = '';
                             this.article.body = '';
-                            alert('updated');
+//                            alert('updated');
                             this.fetchArticles();
                         })
                         .catch(err => console.log(err))
