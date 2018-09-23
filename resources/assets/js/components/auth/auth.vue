@@ -1,33 +1,32 @@
 <template>
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="/"><b>Auto-tests</b>LTE</a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Войти в аккаунт</p>
-            <p class="error" v-if="notCorrect">Неправильный логин и/или пароль</p>
-            <div class="form-group has-feedback" :class="{'has-error': hasError.email}">
-                <input type="email" class="form-control" placeholder="Email" v-model="data.email" required>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback" :class="{'has-error': hasError.password}">
-                <input type="password" class="form-control" placeholder="Password" v-model="data.password" required>
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat" @click="logIn">Войти</button>
-                </div>
-                <!-- /.col -->
-            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3>Login</h3>
+                <div class="login-box-body">
 
+                    <p class="error" v-if="notCorrect">Login or password is not right</p>
+                    <div class="form-group has-feedback" :class="{'has-error': hasError.email}">
+                        <input type="email" class="form-control" placeholder="Email" v-model="data.email" required>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
 
+                    <div class="form-group has-feedback" :class="{'has-error': hasError.password}">
+                        <input type="password" class="form-control" placeholder="Password" v-model="data.password"
+                               required>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+
+                    <div class="row p-3">
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat" @click="logIn">Login
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <!-- /.login-box-body -->
     </div>
 </template>
 
@@ -79,8 +78,8 @@
 
             },
             logIn () {
-                if (this.validate()) return false
-                this.$http.post('/admin/login', this.data).then(res => {
+                if (this.validate()) return false;
+                this.$http.post('/login', this.data).then(res => {
                     if (res.status === 202) {
                         location.href = res.data.url
                     }

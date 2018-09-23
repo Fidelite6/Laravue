@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
+use Psy\Exception\ErrorException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class LoginController extends Controller
 {
@@ -36,4 +42,40 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function auth(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email|exists:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $user = User::where(['email' => $request->email])->first();
+
+        if (count($validator->errors()) || ! $user) {
+            return response()->json(['loginErrors' => $validator->errors(), 'status' => 0], 400);
+        }
+
+        $credentials = $request->only(['email', 'password']);
+
+        if (Auth::attempt($credentials)) {
+            $response = redirect()->intended('/');
+
+            return response()->json(['status' => 1, 'url' => $response->headers->get('location')], 202);
+        } else {
+            return response()->json(['passwordError' => 'Не верный пароль', 'status' => 0], 400);
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            Auth::logout();
+
+            return redirect('/');
+        } catch (ErrorException $e) {
+            return response()->json(['status' => 0 ], 400);
+        }
+    }
+
 }

@@ -1,34 +1,31 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueResource from 'vue-resource';
 
-window.Vue.use(VueRouter);
 
-import AdminDashboard from './components/admin/dashboard.vue';
+// import AdminDashboard from './components/admin/dashboard.vue';
+import Articles from './components/Articles.vue';
+import AuthVue from './components/auth/auth.vue';
+import RegistrationVue from './components/auth/registration.vue';
 
-// Vue.component('articles', require('./components/Articles.vue'));
-// Vue.component('navbar', require('./components/Navbar.vue'));
-// Vue.component('AuthVue', require('./components/auth/auth.vue'));
 
-// const app = new Vue({
-//     el: '#app'
-// });
+Vue.use(VueResource);
 
-const routes = [
-    {
-        path: '/',
-        components: {
-            AdminDashboard: AdminDashboard
-        }
-    },
-    // {path: '/admin/companies/create', component: CompaniesCreate, name: 'createCompany'},
-    // {path: '/admin/companies/edit/:id', component: CompaniesEdit, name: 'editCompany'},
-];
+Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+Vue.http.options.emulateJSON = true;
 
-const router = new VueRouter({
-    // mode: 'history',    // get out of # in url
-    routes
+
+
+const app = new Vue({
+    el: '#app',
+
+    components: {
+        AuthVue,
+        RegistrationVue,
+        Articles,
+
+        // AdminDashboard
+    }
+
 });
-
-const app = new Vue({ router }).$mount('#app');
