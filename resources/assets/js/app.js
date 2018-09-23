@@ -4,7 +4,7 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 
 
-// import AdminDashboard from './components/admin/dashboard.vue';
+import AdminDashboard from './components/admin/dashboard.vue';
 import Articles from './components/Articles.vue';
 import AuthVue from './components/auth/auth.vue';
 import RegistrationVue from './components/auth/registration.vue';
@@ -25,7 +25,7 @@ const app = new Vue({
         RegistrationVue,
         Articles,
 
-        // AdminDashboard
+        AdminDashboard
     }
 
 });
